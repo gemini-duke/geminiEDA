@@ -19,10 +19,9 @@ You can install the `geminiEDA` package from GitHub using the `devtools` package
 install.packages("devtools")
 
 # Install geminiEDA from GitHub
-devtools::install_github("yourusername/geminiEDA")
+devtools::install_github("gemini-duke/geminiEDA")
 ```
 
-Replace `"yourusername"` with your actual GitHub username.
 
 ## Usage
 
@@ -71,4 +70,4 @@ This package is licensed under the MIT License. See the `LICENSE` file for more 
 
 ## Acknowledgments
 
-The `geminiEDA` package was developed by [Your Name] as part of the [GEMINI project]. Special thanks to the contributors and the open-source community for their valuable input and support.
+The `geminiEDA` package was developed by Joao Vitor Perez de Souza as part of the GEMINI group.
