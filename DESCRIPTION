@@ -1,0 +1,20 @@
+Package: geminiEDA
+Title: Exploratory Data Analysis (EDA) Shiny App
+Version: 0.1.0
+Authors@R: person("Your Name", "Your Surname", email = "your.email@example.com", role = c("aut", "cre"))
+Description: This package provides a Shiny app for conducting exploratory data analysis (EDA) on a given dataset.
+Imports:
+    shiny,
+    glue,
+    rmarkdown,
+    gtsummary,
+    ggplot2,
+    ggdist,
+    ggthemes,
+    scales,
+    tidyquant,
+    dplyr
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.3.1
