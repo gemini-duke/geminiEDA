@@ -7,7 +7,9 @@
 #' @export
 run_app <- function(data = NULL) {
   if (!is.null(data)) {
+    dataframe_name <- deparse(substitute(data))
     assign("uploaded_data", data, envir = .GlobalEnv)
+    assign("dataframe_name", dataframe_name, envir = .GlobalEnv)
   }
   shiny::runApp(system.file("app", package = "geminiEDA"))
 }

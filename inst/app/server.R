@@ -17,6 +17,15 @@ server <- function(input, output, session) {
     }
   })
 
+  dataframe_name <- reactive({
+    if (exists("dataframe_name", envir = .GlobalEnv)) {
+      return(get("dataframe_name", envir = .GlobalEnv))
+    } else {
+      "data()"
+    }
+  })
+
+
   # Create selection boxes using column names
   output$covarInput <- renderUI({
     if (is.null(data())) return(NULL)
@@ -42,6 +51,24 @@ server <- function(input, output, session) {
     populate_script(temp_file, covariates, outcomes, author, project)
     return(temp_file)
   })
+
+  scriptContentDownload <- eventReactive(input$generate, {
+    # Retrieve selected covariates and outcomes
+    covariates <- input$covariates
+    outcomes <- input$outcomes
+
+    # Retrieve author, project name, and file name
+    author <- input$author
+    project <- input$project
+
+    # Generate the downloadable script
+    temp_file_download <- tempfile(fileext = ".Rmd")
+    populate_script_download(temp_file_download, covariates, outcomes, author, project,
+                             dataframe_name())
+    return(temp_file_download)
+  })
+
+
 
   # Preview the script (optional and might not be perfect for long scripts)
   output$scriptPreview <- renderText({
@@ -72,7 +99,7 @@ server <- function(input, output, session) {
       paste("EDA_Report", Sys.Date(), ".Rmd", sep = "")
     },
     content = function(file) {
-      report_file <- scriptContent()
+      report_file <- scriptContentDownload()
       file.copy(report_file, file)
     }
   )
