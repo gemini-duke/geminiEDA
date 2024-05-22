@@ -1,33 +1,31 @@
 #' Server logic for the EDA Shiny app
 #'
-#' This function defines the server-side logic for the EDA Shiny app.
-#' It handles data input, reactive expressions, and rendering of the generated report.
+#' This function defines the server logic for the EDA Shiny app.
+#' It handles file uploads and uses data passed from the environment if available.
 #'
-#' @param input,output,session Internal parameters for {shiny}.
-#' @return The server function for the EDA Shiny app.
-#' @importFrom shiny reactive reactiveValues renderUI renderText renderUI
-#' @import shiny glue rmarkdown
+#' @return The server logic for the EDA Shiny app.
+#' @import shiny
 #' @export
-
-
 server <- function(input, output, session) {
-
-  # Reactive expression for the dataset
-  dataset <- reactive({
-    inFile <- input$datafile
-    if (is.null(inFile)) return(NULL)
-    read.csv(inFile$datapath)
+  data <- reactive({
+    if (exists("uploaded_data", envir = .GlobalEnv)) {
+      return(get("uploaded_data", envir = .GlobalEnv))
+    } else if (!is.null(input$datafile)) {
+      read.csv(input$datafile$datapath)
+    } else {
+      NULL
+    }
   })
 
   # Create selection boxes using column names
   output$covarInput <- renderUI({
-    if (is.null(dataset())) return(NULL)
-    selectInput("covariates", "Covariates", choices = colnames(dataset()), multiple = TRUE)
+    if (is.null(data())) return(NULL)
+    selectInput("covariates", "Covariates", choices = colnames(data()), multiple = TRUE)
   })
 
   output$outcomInput <- renderUI({
-    if (is.null(dataset())) return(NULL)
-    selectInput("outcomes", "Outcomes", choices = colnames(dataset()), multiple = TRUE)
+    if (is.null(data())) return(NULL)
+    selectInput("outcomes", "Outcomes", choices = colnames(data()), multiple = TRUE)
   })
 
   scriptContent <- eventReactive(input$generate, {

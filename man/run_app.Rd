@@ -4,8 +4,12 @@
 \alias{run_app}
 \title{Run the Shiny app}
 \usage{
-run_app()
+run_app(data = NULL)
+}
+\arguments{
+\item{data}{Optional dataframe to use in the Shiny app.}
 }
 \description{
 This function launches the Shiny app for generating EDA reports.
+It can accept a dataframe from the current environment.
 }

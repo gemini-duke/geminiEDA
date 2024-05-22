@@ -96,13 +96,13 @@ Data Processing Details: xx
 Plot
 
 ```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
-eda_univ_autoplot(dataset(), '{cov}')
+eda_univ_autoplot(data(), '{cov}')
 ```
 
 Table
 
 ```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
-eda_univ_summary(dataset(), '{cov}')
+eda_univ_summary(data(), '{cov}')
 ```
 
 
@@ -134,13 +134,13 @@ Data Processing Details: xx
 Plot
 
 ```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
-eda_univ_autoplot(dataset(), '{out}')
+eda_univ_autoplot(data(), '{out}')
 ```
 
 Table
 
 ```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
-eda_univ_summary(dataset(), '{out}')
+eda_univ_summary(data(), '{out}')
 ```
 
 
@@ -160,13 +160,13 @@ eda_univ_summary(dataset(), '{out}')
 Plot
 
 ```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
-eda_biv_autoplot(dataset(), '{cov}', '{out}')
+eda_biv_autoplot(data(), '{cov}', '{out}')
 ```
 
 Table
 
 ```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
-eda_biv_summary(dataset(), '{cov}', '{out}')
+eda_biv_summary(data(), '{cov}', '{out}')
 ```
                       "), con)
     }
