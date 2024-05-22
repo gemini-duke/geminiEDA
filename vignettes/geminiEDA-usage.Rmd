@@ -1,0 +1,114 @@
+---
+title: "geminiEDA-usage"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{geminiEDA-usage}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ggplot2)
+library(dplyr)
+library(gtsummary)
+library(geminiEDA)
+library(ggthemes) 
+library(scales)   # Add this line
+```
+
+# Introduction
+
+The `geminiEDA` package provides tools for generating exploratory data analysis (EDA) reports in R. This vignette demonstrates how to use the package to apply custom themes, create plots, and generate summary tables.
+
+## Custom GEMINI Theme
+
+The `geminiEDA` package includes a custom theme for `ggplot2` plots. You can apply this theme to your plots using the `theme_GEMINI` function.
+
+```{r, message=FALSE, warning=FALSE}
+library(ggplot2)
+library(geminiEDA)
+
+# Create a sample plot with the default theme
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point()
+p
+```
+
+Apply the GEMINI theme
+
+```{r, message=FALSE, warning=FALSE}
+p + theme_GEMINI()
+```
+
+## Custom Color and Fill Scales
+
+The package also provides custom color and fill scales for `ggplot2` plots.
+
+```{r, message=FALSE, warning=FALSE}
+# Create a sample plot with default scales
+p <- ggplot(mtcars, aes(x = factor(cyl), fill = factor(cyl))) +
+  geom_bar()
+p
+```
+
+Apply the GEMINI fill scale
+```{r,  message=FALSE, warning=FALSE}
+p + scale_fill_GEMINI()
+```
+
+Apply the GEMINI theme + fill scale
+```{r,  message=FALSE, warning=FALSE}
+p + 
+  scale_fill_GEMINI() +
+  theme_GEMINI()
+```
+## Univariate Plot Function
+
+The `eda_univ_autoplot` function creates univariate plots based on the variable type.
+
+### Numeric variable
+```{r, message=FALSE, warning=FALSE}
+eda_univ_autoplot(mtcars, "mpg")
+```
+### Categoric variable
+```{r, message=FALSE, warning=FALSE}
+mtcars$cyl <- factor(mtcars$cyl)
+eda_univ_autoplot(mtcars, "cyl")
+```
+## Bivariate Plot Function
+
+The `eda_biv_autoplot` function creates bivariate plots based on the types of the covariate and outcome variables.
+### Numeric x Numeric
+```{r, message=FALSE, warning=FALSE}
+eda_biv_autoplot(mtcars, "wt", "mpg")
+```
+### Categorical vs. Categorical
+```{r, message=FALSE, warning=FALSE}
+eda_biv_autoplot(mtcars, "cyl", "am")
+```
+### Categorical vs. Numeric
+```{r, message=FALSE, warning=FALSE}
+eda_biv_autoplot(mtcars, "cyl", "mpg")
+```
+## Summary Table Functions
+
+The package includes functions to generate summary tables for univariate and bivariate analyses.
+### Univariate tabke
+```{r, message=FALSE, warning=FALSE}
+eda_univ_summary(mtcars, "mpg")
+```
+
+### Bivariate table
+```{r, message=FALSE, warning=FALSE}
+eda_biv_summary(mtcars, "cyl", "mpg")
+```
+# Conclusion
+
+This vignette provided an overview of the `geminiEDA` package and demonstrated how to use its functions to create plots and generate summary tables for EDA. For more information, please refer to the package documentation.
