@@ -66,4 +66,14 @@ server <- function(input, output, session) {
       }
     )
   })
+
+  output$downloadReport <- downloadHandler(
+    filename = function() {
+      paste("EDA_Report", Sys.Date(), ".Rmd", sep = "")
+    },
+    content = function(file) {
+      report_file <- scriptContent()
+      file.copy(report_file, file)
+    }
+  )
 }

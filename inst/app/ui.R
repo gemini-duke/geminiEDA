@@ -21,10 +21,11 @@ ui <- fluidPage(
                  uiOutput("outcomInput"), # Dynamic UI for outcomes
                  textInput("author", "Author", value = ""),
                  textInput("project", "Project Name", value = ""),
-                 actionButton("generate", "Generate Report")
+                 actionButton("generate", "Generate Report"),
+                 downloadButton("downloadReport", "Download R Markdown Report") # Download button
                ),
                mainPanel(
-                 verbatimTextOutput("scriptPreview")
+                 # verbatimTextOutput("scriptPreview")
                )
              )
     ),
@@ -37,3 +38,5 @@ ui <- fluidPage(
     )
   )
 )
+
+
