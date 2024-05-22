@@ -22,43 +22,58 @@ install.packages("devtools")
 devtools::install_github("gemini-duke/geminiEDA")
 ```
 
+## Main usage
 
-## Usage
+To launch the Shiny app, you have two options: running the app with a provided data object or running the app without providing a data object (in which case you will upload a CSV file within the app).
 
-To launch the Shiny app, run the following code in your R console:
+### Option 1: Running the App with a Data Object
+
+You can provide a data object directly when launching the app. This is useful if you already have a dataset loaded in your R environment.
 
 ```r
 library(geminiEDA)
-run_app()
+
+# Example dataframe
+my_data <- data.frame(
+  var1 = rnorm(100),
+  var2 = rnorm(100),
+  outcome = rnorm(100)
+)
+
+# Run the Shiny app with the dataframe
+eda_app(my_data)
+```
+
+### Option 2: Running the App without a Data Object
+
+If you prefer to upload your dataset within the app, simply run the app without any arguments.
+
+```r
+library(geminiEDA)
+eda_app()
 ```
 
 This will open the app in your default web browser.
 
-In the app:
+### Using the App
 
-1. Upload a CSV file containing your dataset
-2. Select the desired covariates and outcomes for analysis
-3. Enter a title, author name, and project name for the report (optional)
-4. Click the "Generate Report" button to generate the EDA report
-5. View the generated report in the "Generated Report" tab
-6. Optionally, download the generated R Markdown script for further customization or reproducibility
+In both scenarios, once the app is open:
 
-## Examples
+1. **If you did not provide a data object**: Upload a CSV file containing your dataset.
+2. Select the desired covariates and outcomes for analysis.
+3. Enter a title, author name, and project name for the report (optional).
+4. Click the "Generate Report" button to generate the EDA report.
+5. View the generated report in the "Generated Report" tab.
+6. Optionally, download the generated R Markdown script for further customization or reproducibility.
 
-Here's an example of how to use the `geminiEDA` package to generate an EDA report:
+By following these steps, you can easily generate an Exploratory Data Analysis report either by directly using a data object from your R environment or by uploading a CSV file through the app.
+
+## Vignettes
+For more detailed examples and usage instructions, see the package vignettes:
 
 ```r
-library(geminiEDA)
-
-# Load example dataset
-data(iris)
-write.csv(iris, "iris.csv", row.names = FALSE)
-
-# Run the app
-run_app()
+browseVignettes(package = "geminiEDA")
 ```
-
-In the app, upload the `iris.csv` file, select the desired covariates and outcomes, and click "Generate Report" to create an EDA report for the iris dataset.
 
 ## Contributing
 
