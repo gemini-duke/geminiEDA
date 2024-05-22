@@ -4,63 +4,35 @@
 #' @param base_size Base font size for the plot elements (default is 14).
 #' @param base_family Base font family for the plot text (default is "helvetica").
 #' @return A ggplot2 theme object that can be added to ggplot plots.
-#' @import ggplot2 dplyr gtsummary glue
+#' @import ggplot2 ggthemes
 #' @export
-
 theme_GEMINI <- function(base_size=14, base_family="helvetica") {
-
-  (theme_foundation(base_size=base_size, base_family=base_family)
-    + theme(
-      # Title adjustments
-      plot.title = element_text(face = "bold",
-                                size = rel(1.2),
-                                hjust = 0.5,
-                                color = "#333333"),
-
-      # General text adjustments
-      text = element_text(color = "#333333"),
-
-      # Background adjustments
-      panel.background = element_rect(fill = "white", colour = NA),
-      plot.background = element_rect(fill = "white", colour = NA),
-
-      # Border adjustments
-      panel.border = element_rect(fill = NA, colour = "#333333", linewidth = 0.5),
-
-      # Axis title and text adjustments
-      axis.title = element_text(face = "plain",
-                                size = rel(1),
-                                color = "#333333"),
-      axis.title.y = element_text(angle=90, vjust = 2),
-      axis.title.x = element_text(vjust = -0.2),
-      axis.text = element_text(color = "#333333"),
-
-      # Axis line and tick adjustments
-      axis.line = element_line(colour="#333333"),
-      axis.ticks = element_line(color = "#333333"),
-
-      # Grid adjustments
-      panel.grid.major = element_line(colour="#f0f0f0"),
-      panel.grid.minor = element_blank(),
-
-      # Legend adjustments
-      legend.key = element_rect(fill = "white", colour = "#f0f0f0"),
-      legend.position = "bottom",
-      legend.direction = "horizontal",
-      legend.key.size= unit(0.2, "cm"),
-      legend.margin = unit(0, "cm"),
-      legend.title = element_text(face="plain", color = "#333333"),
-
-      # Margin adjustments
-      plot.margin = unit(c(10, 10, 10, 10), "mm"),
-
-      # Strip adjustments for facet plots
-      strip.background = element_rect(fill="white",
-                                      colour="#f0f0f0",
-                                      linewidth=0.5),
-      strip.text = element_text(face="bold", color = "#333333")
-    ) +
-      theme(legend.key = element_blank()))
+  (ggthemes::theme_foundation(base_size=base_size, base_family=base_family) +
+     theme(
+       plot.title = element_text(face = "bold", size = rel(1.2), hjust = 0.5, color = "#333333"),
+       text = element_text(color = "#333333"),
+       panel.background = element_rect(fill = "white", colour = NA),
+       plot.background = element_rect(fill = "white", colour = NA),
+       panel.border = element_rect(fill = NA, colour = "#333333", linewidth = 0.5),
+       axis.title = element_text(face = "plain", size = rel(1), color = "#333333"),
+       axis.title.y = element_text(angle=90, vjust = 2),
+       axis.title.x = element_text(vjust = -0.2),
+       axis.text = element_text(color = "#333333"),
+       axis.line = element_line(colour="#333333"),
+       axis.ticks = element_line(color = "#333333"),
+       panel.grid.major = element_line(colour="#f0f0f0"),
+       panel.grid.minor = element_blank(),
+       legend.key = element_rect(fill = "white", colour = "#f0f0f0"),
+       legend.position = "bottom",
+       legend.direction = "horizontal",
+       legend.key.size= unit(0.2, "cm"),
+       legend.margin = unit(0, "cm"),
+       legend.title = element_text(face="plain", color = "#333333"),
+       plot.margin = unit(c(10, 10, 10, 10), "mm"),
+       strip.background = element_rect(fill="white", colour="#f0f0f0", linewidth=0.5),
+       strip.text = element_text(face="bold", color = "#333333")
+     ) +
+     theme(legend.key = element_blank()))
 }
 
 #' Set a custom fill scale for ggplot2 plots in the GEMINI style
