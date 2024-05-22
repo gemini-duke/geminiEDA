@@ -5,7 +5,7 @@
 #'
 #' @param data Optional dataframe to use in the Shiny app.
 #' @export
-run_app <- function(data = NULL) {
+eda_app <- function(data = NULL) {
   if (!is.null(data)) {
     dataframe_name <- deparse(substitute(data))
     assign("uploaded_data", data, envir = .GlobalEnv)
