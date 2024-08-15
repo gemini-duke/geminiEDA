@@ -254,13 +254,25 @@ eda_univ_summary <- function(data, var) {
 #' @return A gtsummary table object with statistics based on the types of the covariate and outcome variables.
 #' @export
 eda_biv_summary <- function(data, covar, out) {
-  # Identify the types of the covariate and outcome
+  # Identify the type of the covariate
   covar_type <- ifelse(is.numeric(data[[covar]]) & length(unique(data[[covar]])) > 2, "numeric",
                        ifelse(length(unique(data[[covar]])) == 2, "categorical", "categorical"))
 
-  # Create summary based on variable type
+  # Create a labeled quartile variable if the outcome is numeric
+  if (is.numeric(data[[out]])) {
+    data <- data %>%
+      mutate(!!sym(paste0(out, "_quartile")) := ntile(!!sym(out), 4)) %>%
+      mutate(!!sym(paste0(out, "_quartile")) := factor(!!sym(paste0(out, "_quartile")),
+                                                       labels = c(paste0("0-25% ", out),
+                                                                  paste0("26-50% ", out),
+                                                                  paste0("51-75% ", out),
+                                                                  paste0("76-100% ", out))))
+    out <- paste0(out, "_quartile")
+  }
+
+  # Create summary based on covariate type
   if (covar_type == "numeric") {
-    # Numeric summary by outcome
+    # Numeric summary by labeled quartile outcome
     table_numeric_by_out <- data %>%
       select(!!sym(covar), !!sym(out)) %>%
       tbl_summary(
@@ -275,17 +287,18 @@ eda_biv_summary <- function(data, covar, out) {
     return(table_numeric_by_out)
 
   } else if (covar_type == "categorical") {
-    # Categorical summary by outcome
+    # Categorical summary by labeled quartile outcome
     table_categorical_by_out <- data %>%
       select(!!sym(covar), !!sym(out)) %>%
       tbl_summary(
         by = !!sym(out),
         type = list(!!sym(covar) ~ "categorical"),
-        statistic = list(all_categorical() ~  "{n} / {N} ({p}%)")) %>%
+        statistic = list(all_categorical() ~ "{n} / {N} ({p}%)")) %>%
       bold_labels() %>%
       tbl_butcher()
 
     return(table_categorical_by_out)
   }
 }
+
 
