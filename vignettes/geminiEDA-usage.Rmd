@@ -71,7 +71,7 @@ p +
 ```
 ## Univariate Plot Function
 
-The `eda_univ_autoplot` function creates univariate plots based on the variable type.
+The `eda_univ_autoplot` function creates univariate plots based on the variable type. The standard behavior is that the function will try to guess what is the data type of the variable supplied. That can be controlled by the user with the argument `input_type`, where the user can choose between `"numeric"` and `"character"`.
 
 ### Numeric variable
 ```{r, message=FALSE, warning=FALSE}
@@ -82,6 +82,12 @@ eda_univ_autoplot(mtcars, "mpg")
 mtcars$cyl <- factor(mtcars$cyl)
 eda_univ_autoplot(mtcars, "cyl")
 ```
+
+### User-defined variable type
+```{r, message=FALSE, warning=FALSE}
+eda_univ_autoplot(mtcars, "mpg", input_type = "categorical")
+```
+
 ## Bivariate Plot Function
 
 The `eda_biv_autoplot` function creates bivariate plots based on the types of the covariate and outcome variables.

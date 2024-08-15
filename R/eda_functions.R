@@ -68,10 +68,14 @@ scale_colour_GEMINI <- function(...){
 #' @param var The name of the variable to plot.
 #' @return A ggplot2 object displaying the histogram or bar plot based on the variable type.
 #' @export
-eda_univ_autoplot <- function(data, var) {
-  # Check if variable is numeric, binary, or categorical
-  var_type <- ifelse(is.numeric(data[[var]]) & length(unique(data[[var]])) > 2, "numeric",
-                     ifelse(length(unique(data[[var]])) == 2, "categorical", "categorical"))
+eda_univ_autoplot <- function(data, var, input_type = NULL) {
+  # Determine the variable type, using input_type if provided
+  var_type <- if (!is.null(input_type)) {
+    input_type
+  } else {
+    ifelse(is.numeric(data[[var]]) & length(unique(data[[var]])) > 2, "numeric",
+           ifelse(length(unique(data[[var]])) == 2, "categorical", "categorical"))
+  }
 
   # Create plot based on variable type
   if (var_type == "numeric") {
@@ -93,6 +97,7 @@ eda_univ_autoplot <- function(data, var) {
     print(bar_plot)
   }
 }
+
 
 #' Create a univariate plot based on variable type
 #'
