@@ -106,13 +106,22 @@ eda_univ_autoplot <- function(data, var, input_type = NULL) {
 #' @param var The name of the variable to plot.
 #' @return A ggplot2 object displaying the histogram or bar plot based on the variable type.
 #' @export
-eda_biv_autoplot <- function(data, covar, out) {
-  # Identify the types of the covariate and outcome
-  covar_type <- ifelse(is.numeric(data[[covar]]) & length(unique(data[[covar]])) > 2, "numeric",
-                       ifelse(length(unique(data[[covar]])) == 2, "categorical", "categorical"))
-  out_type <- ifelse(is.numeric(data[[out]]) & length(unique(data[[out]])) > 2, "numeric",
-                     ifelse(length(unique(data[[out]])) == 2, "categorical", "categorical"))
+eda_biv_autoplot <- function(data, covar, out, input_type_cov = NULL, input_type_out = NULL) {
+  # Determine the covariate type, using input_type_cov if provided
+  covar_type <- if (!is.null(input_type_cov)) {
+    input_type_cov
+  } else {
+    ifelse(is.numeric(data[[covar]]) & length(unique(data[[covar]])) > 2, "numeric",
+           ifelse(length(unique(data[[covar]])) == 2, "categorical", "categorical"))
+  }
 
+  # Determine the outcome type, using input_type_out if provided
+  out_type <- if (!is.null(input_type_out)) {
+    input_type_out
+  } else {
+    ifelse(is.numeric(data[[out]]) & length(unique(data[[out]])) > 2, "numeric",
+           ifelse(length(unique(data[[out]])) == 2, "categorical", "categorical"))
+  }
 
   # Create plot based on variable types
   if (covar_type == "numeric" & out_type == "numeric") {
@@ -129,17 +138,17 @@ eda_biv_autoplot <- function(data, covar, out) {
     # Barplot for categorical x categorical
     bar_plot <- data %>%
       ggplot(aes(x = !!sym(covar), fill = !!sym(out))) +
-      geom_bar(position = "stack") +
+      geom_bar(position = "dodge") +
       theme_GEMINI() +
       scale_fill_GEMINI() +
       labs(title = paste("Bar plot of", covar, "vs", out))
 
     print(bar_plot)
 
-  } else if ((covar_type == "categorical" & out_type == "numeric")) {
+  } else if (covar_type == "categorical" & out_type == "numeric") {
     # Raincloud plot for categorical x numeric
     raincloud_plot <- data %>%
-      ggplot(aes(y = !!sym(covar), x = !!sym(out), fill=!!sym(covar))) +
+      ggplot(aes(y = !!sym(covar), x = !!sym(out), fill = !!sym(covar))) +
       ggdist::stat_halfeye(
         adjust = .5,
         width = .6,
@@ -163,10 +172,11 @@ eda_biv_autoplot <- function(data, covar, out) {
       scale_fill_GEMINI()
 
     print(raincloud_plot)
-  } else if ((covar_type == "numeric" & out_type == "categorical")) {
+
+  } else if (covar_type == "numeric" & out_type == "categorical") {
     # Raincloud plot for categorical x numeric
     raincloud_plot <- data %>%
-      ggplot(aes(y = !!sym(out), x = !!sym(covar), fill=!!sym(out))) +
+      ggplot(aes(y = !!sym(out), x = !!sym(covar), fill = !!sym(out))) +
       ggdist::stat_halfeye(
         adjust = .5,
         width = .6,

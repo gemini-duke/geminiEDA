@@ -90,13 +90,15 @@ eda_univ_autoplot(mtcars, "mpg", input_type = "categorical")
 
 ## Bivariate Plot Function
 
-The `eda_biv_autoplot` function creates bivariate plots based on the types of the covariate and outcome variables.
+The `eda_biv_autoplot` function creates bivariate plots based on the types of the covariate and outcome variables. Similarly to the `eda_univ_autoplot`, the user can define the type of the variables using the `input_type_out`, `input_type_cov` arguments. If not specified, the function will guess what the type of the data is.
 ### Numeric x Numeric
 ```{r, message=FALSE, warning=FALSE}
 eda_biv_autoplot(mtcars, "wt", "mpg")
 ```
 ### Categorical vs. Categorical
 ```{r, message=FALSE, warning=FALSE}
+mtcars$am <- factor(mtcars$am)
+mtcars$cyl <- factor(mtcars$cyl)
 eda_biv_autoplot(mtcars, "cyl", "am")
 ```
 ### Categorical vs. Numeric
