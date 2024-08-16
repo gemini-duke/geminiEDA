@@ -196,11 +196,14 @@ author: '{author}'
 date: '`r Sys.Date()`'
 format:
   html:
+    code-fold: true
     toc: true
     toc-title: Contents
     theme:
       - Cerulean
       - styles/styles.scss
+embed-resources: true
+html-table-processing: none
 ---"), con)
 
 
@@ -248,7 +251,7 @@ Data Processing Details: xx
 
 Plot
 
-```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
+```{{r,  warning=FALSE, message=FALSE}}
 #| label: fig-univ-{cov}
 #| fig-cap: 'Univariate plot of {cov}'
 eda_univ_autoplot({data_name}, '{cov}')
@@ -256,10 +259,11 @@ eda_univ_autoplot({data_name}, '{cov}')
 
 Table
 
-```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
+```{{r,  warning=FALSE, message=FALSE}}
 #| label: tbl-univ-{cov}
 #| tbl-cap: 'Univariate table of {cov}'
-eda_univ_summary({data_name}, '{cov}')
+eda_univ_summary({data_name}, '{cov}') |> as_gt() |>
+  as_raw_html()
 ```
 
 
@@ -290,7 +294,7 @@ Data Processing Details: xx
 
 Plot
 
-```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
+```{{r,  warning=FALSE, message=FALSE}}
 #| label: fig-univ-{out}
 #| fig-cap: 'Univariate plot of {out}'
 eda_univ_autoplot({data_name}, '{out}')
@@ -298,10 +302,11 @@ eda_univ_autoplot({data_name}, '{out}')
 
 Table
 
-```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
+```{{r,  warning=FALSE, message=FALSE}}
 #| label: tbl-univ-{out}
 #| tbl-cap: 'Univariate table of {out}'
-eda_univ_summary({data_name}, '{out}')
+eda_univ_summary({data_name}, '{out}') |> as_gt() |>
+  as_raw_html()
 ```
 
 
@@ -320,7 +325,7 @@ eda_univ_summary({data_name}, '{out}')
 
 Plot
 
-```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
+```{{r,  warning=FALSE, message=FALSE}}
 #| label: fig-biv-{out}-{cov}
 #| fig-cap: 'Bivariate plot of {out} and {cov}'
 eda_biv_autoplot({data_name}, '{cov}', '{out}')
@@ -328,10 +333,11 @@ eda_biv_autoplot({data_name}, '{cov}', '{out}')
 
 Table
 
-```{{r, echo=FALSE, warning=FALSE, message=FALSE}}
+```{{r,  warning=FALSE, message=FALSE}}
 #| label: tbl-biv-{out}-{cov}
 #| tbl-cap: 'Bivariate table of {out} and {cov}'
-eda_biv_summary({data_name}, '{cov}', '{out}')
+eda_biv_summary({data_name}, '{cov}', '{out}') |> as_gt() |>
+  as_raw_html()
 ```
                       "), con)
     }
