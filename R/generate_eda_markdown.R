@@ -27,28 +27,13 @@ populate_script <- function(filename, covariates, outcomes, author, project) {
 title: '{project}'
 author: '{author}'
 date: '`r Sys.Date()`'
-output:
-  html_document:
-    highlight: 'textmate'
-    code_folding: show
-    code_download: true
+format:
+  html:
     toc: true
-    toc_depth: 5
-    toc_float:
-      collapsed: false
-      smooth_scroll: false
+    toc-title: Contents
     theme:
-      font-family: 'Roboto'
-      code-font-size: '0.9em'
-      background: '#ffffff'
-      text-color: '#333333'
-      link-color: '#3498db'
-      code-background: '#F9F9F9'
-      border-left-color: '#3498db'
-      border-bottom-color: '#dddddd'
-      header-background: '#ffffff'
-      header-border-bottom: '3px solid #3498db'
-      navbar-background: '#3498db'
+      - Cerulean
+      - styles/styles.scss
 ---"), con)
 
 
@@ -209,28 +194,13 @@ populate_script_download <- function(filename, covariates, outcomes, author,
 title: '{project}'
 author: '{author}'
 date: '`r Sys.Date()`'
-output:
-  html_document:
-    highlight: 'textmate'
-    code_folding: show
-    code_download: true
+format:
+  html:
     toc: true
-    toc_depth: 5
-    toc_float:
-      collapsed: false
-      smooth_scroll: false
+    toc-title: Contents
     theme:
-      font-family: 'Roboto'
-      code-font-size: '0.9em'
-      background: '#ffffff'
-      text-color: '#333333'
-      link-color: '#3498db'
-      code-background: '#F9F9F9'
-      border-left-color: '#3498db'
-      border-bottom-color: '#dddddd'
-      header-background: '#ffffff'
-      header-border-bottom: '3px solid #3498db'
-      navbar-background: '#3498db'
+      - Cerulean
+      - styles/styles.scss
 ---"), con)
 
 
