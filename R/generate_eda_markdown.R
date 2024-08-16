@@ -215,6 +215,7 @@ library(gtsummary)
 library(ggthemes)
 library(scales)
 library(geminiEDA)
+library(gt)
 ```", con)
 
   writeLines("
