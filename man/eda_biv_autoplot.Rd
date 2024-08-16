@@ -4,7 +4,13 @@
 \alias{eda_biv_autoplot}
 \title{Create a univariate plot based on variable type}
 \usage{
-eda_biv_autoplot(data, covar, out)
+eda_biv_autoplot(
+  data,
+  covar,
+  out,
+  input_type_cov = NULL,
+  input_type_out = NULL
+)
 }
 \arguments{
 \item{data}{The dataset containing the variable.}

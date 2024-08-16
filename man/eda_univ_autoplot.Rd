@@ -4,7 +4,7 @@
 \alias{eda_univ_autoplot}
 \title{Create a univariate plot based on variable type}
 \usage{
-eda_univ_autoplot(data, var)
+eda_univ_autoplot(data, var, input_type = NULL)
 }
 \arguments{
 \item{data}{The dataset containing the variable.}
